@@ -1,0 +1,6 @@
+admin_css.config:
+  path: '/admin/config/people/admin-css'
+  defaults:
+    _form: '\Drupal\admin_css\Form\SimpleForm'
+  requirements:
+    _permission: 'administer css style configuration'
