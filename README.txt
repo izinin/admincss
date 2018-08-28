@@ -1,37 +1,43 @@
-Modules extend your site functionality beyond Drupal core.
+INTRODUCTION
 
-WHAT TO PLACE IN THIS DIRECTORY?
---------------------------------
+ * The Admin CSS module allows site builders to add CSS through the admin dashboard.
+For a full description of the module visit: https://www.drupal.org/project/admincss.
 
-Placing downloaded and custom modules in this directory separates downloaded and
-custom modules from Drupal core's modules. This allows Drupal core to be updated
-without overwriting these files.
 
-ORGANIZING MODULES IN THIS DIRECTORY
-------------------------------------
+REQUIREMENTS
 
-You may create subdirectories in this directory, to organize your added modules,
-without breaking the site. Some common subdirectories include "contrib" for
-contributed modules, and "custom" for custom modules. Note that if you move a
-module to a subdirectory after it has been enabled, you may need to clear the
-Drupal cache so it can be found.
+ * This module does not requires the any dependency modules
 
-There are number of directories that are ignored when looking for modules. These
-are 'src', 'lib', 'vendor', 'assets', 'css', 'files', 'images', 'js', 'misc',
-'templates', 'includes', 'fixtures' and 'Drupal'.
 
-MULTISITE CONFIGURATION
------------------------
+INSTALLATION
 
-In multisite configurations, modules found in this directory are available to
-all sites. You may also put modules in the sites/all/modules directory, and the
-versions in sites/all/modules will take precedence over versions of the same
-module that are here. Alternatively, the sites/your_site_name/modules directory
-pattern may be used to restrict modules to a specific site instance.
+ * Install the Admin CSS module as you would normally install a contributed
+   Drupal module. Visit https://www.drupal.org/node/1897420 for further information.
 
-MORE INFORMATION
-----------------
 
-Refer to the “Developing for Drupal” section of the README.txt in the Drupal
-root directory for further information on extending Drupal with custom modules.
-test test
+CONFIGURATION
+
+ * Navigate to Administration > Extend and enable the module.
+
+ * Navigate to Administration » config » people » admincss to add/edit/delete custom css.
+
+ * Save your configuration. When enabled, the module will allows users to add css in admin dashboard.
+
+ * To remove the Admin CSS, disable the module and clear caches.
+
+ 
+MAINTAINERS
+
+Current maintainer:
+
+ * Damodharan (damu) - https://www.drupal.org/user/3308527
+
+This project has been sponsored by:
+
+ * Pepper Square Software Services Private Limited specialized in software product development and planning of Drupal powered sites.
+
+ * Pepper Square offers complete development cycle and hosting to get you started. 
+   Visit: https://www.peppersquare.com for more information.
+ 
+ * To submit bug reports and feature suggestions, or to track changes visit:
+   https://www.drupal.org/project/issues/admincss
