@@ -3,4 +3,3 @@ admin_css.admin:
     css:
         theme:
             css/global.admin.css: {}
-            

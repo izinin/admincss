@@ -4,4 +4,3 @@ admin_css.config:
     _form: '\Drupal\admin_css\Form\SimpleForm'
   requirements:
     _permission: 'administer css style configuration'
-    

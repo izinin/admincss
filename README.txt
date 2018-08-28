@@ -39,7 +39,7 @@ This project has been sponsored by:
  * Pepper Square Software Services Private Limited specialized in software 
    product development and planning of Drupal powered sites.
 
- * Pepper Square offers complete development cycle and hosting to get you started. 
+ * Pepper Square offers complete development cycle and hosting to get you start. 
    Visit: https://www.peppersquare.com for more information.
  
  * To submit bug reports and feature suggestions, or to track changes visit:
