@@ -6,28 +6,24 @@
  */
 
 use Drupal\Core\Theme;
-use Drupal\file\Entity\File;
-use Drupal\Core\Url; 
-
 /**
  * Implements hook_page_attachments().
  */
 function admin_css_page_attachments(array &$page) {
- 	$theme = \Drupal::theme()->getActiveTheme()->getName();
- 	$def_theme = Drupal::config('system.theme')->get('default');
- 	if($def_theme == $theme){
- 		$page['#attached']['library'][] = '/admin_css';
- 	}
-}
- 
+  $theme = \Drupal::theme()->getActiveTheme()->getName();
+  $def_theme = Drupal::config('system.theme')->get('default');
+  if($def_theme == $theme){
+  $page['#attached']['library'][] = '/admin_css';
+ }
+} 
 /**
  * Implements hook_library_info_alter().
  */
 function admin_css_library_info_alter(&$libraries, $extension) {
-  	$theme = \Drupal::theme()->getActiveTheme()->getName();
-	$uri = 'public://admin-style.css';
-	if (file_exists($uri)) {
-	      // Append custom style sheet to theme libraries.
-	      $libraries['admin_css']['css']['theme'][$uri]['weight'] = 9999;
-	}  
+ $theme = \Drupal::theme()->getActiveTheme()->getName();
+ $uri = 'public://admin-style.css';
+ if (file_exists($uri)) {
+ // Append custom style sheet to theme libraries.
+  $libraries['admin_css']['css']['theme'][$uri]['weight'] = 9999;
+ }  
 }
