@@ -9,7 +9,6 @@ use Symfony\Component\HttpFoundation\Request;
 /**
  * SimpleForm with some custom functions and settings.
  */
-
 class SimpleForm extends ConfigFormBase {
 
   /**
