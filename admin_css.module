@@ -15,7 +15,7 @@ function admin_css_page_attachments(array &$page) {
   $def_theme = Drupal::config('system.theme')->get('default');
   if ($def_theme == $theme) {
     $page['#attached']['library'][] = '/admin_css';
-   }
+  }
 }
 
 /**

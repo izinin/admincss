@@ -22,7 +22,6 @@ class SimpleForm extends ConfigFormBase {
   /**
    * {@inheritdoc}
    */
-
   public function getEditableConfigNames() {
     return [
       'admin_css.settings',
@@ -32,21 +31,19 @@ class SimpleForm extends ConfigFormBase {
   /**
    * {@inheritdoc}
    */
-  
   public function buildForm(array $form, FormStateInterface $form_state, Request $request = NULL) {
-    $form['custom_css'] = array(
-     '#type' => 'textarea',
-     '#title' => $this->t('Enter your custom css'),
-     '#default_value' => $this->config('admin_css.settings')->get('custom_css'),
-     '#rows' => 10,
-   );
+    $form['custom_css'] = [
+      '#type' => 'textarea',
+      '#title' => $this->t('Enter your custom css'),
+      '#default_value' => $this->config('admin_css.settings')->get('custom_css'),
+      '#rows' => 10,
+   ];
     return parent::buildForm($form, $form_state);
   }
 
   /**
   * Form submission handler.
   */
-
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $userInputValues = $form_state->getUserInput();
     $config = $this->configFactory->getEditable('admin_css.settings');
