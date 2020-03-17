@@ -2,10 +2,8 @@
 
 /**
  * @file
- * Hook implementations for the Admin css module.
+ * Hook implementations for the Admin CSS module.
  */
-
-use Drupal\Core\Theme;
 
 /**
  * Implements hook_page_attachments().
@@ -13,8 +11,10 @@ use Drupal\Core\Theme;
 function admin_css_page_attachments(array &$page) {
   $theme = \Drupal::theme()->getActiveTheme()->getName();
   $def_theme = Drupal::config('system.theme')->get('default');
-  if ($def_theme == $theme) {
-    $page['#attached']['library'][] = '/admin_css';
+  if ($def_theme === $theme) {
+    if (file_exists('public://admin-style.css')) {
+      $page['#attached']['library'][] = $theme . '/admin_css.admin_css';
+    }
   }
 }
 
@@ -23,9 +23,10 @@ function admin_css_page_attachments(array &$page) {
  */
 function admin_css_library_info_alter(&$libraries, $extension) {
   $theme = \Drupal::theme()->getActiveTheme()->getName();
-  $uri = 'public://admin-style.css';
-  if (file_exists($uri)) {
-    // Append custom style sheet to theme libraries.
-    $libraries['admin_css']['css']['theme'][$uri]['weight'] = 9999;
+  if ($theme === $extension) {
+    if (!isset($libraries['admin_css.admin_css']['css'])) {
+      // Add the library to the active theme with a relatively high weight.
+      $libraries['admin_css.admin_css']['css']['theme']['public://admin-style.css']['weight'] = 9999;
+    }
   }
 }
