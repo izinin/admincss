@@ -1,0 +1,6 @@
+admincss.config_menu:
+  title: 'Admin CSS Editor'
+  description: 'Settings for the Admin CSS Editor.'
+  route_name: admincss.config
+  parent: system.admin_config_development
+  weight: -30

@@ -1,0 +1,8 @@
+name: Admin CSS
+description: Provides the ability to add custom CSS through the admin.
+type: module
+package: Development
+
+core: 8.x
+core_version_requirement: ^8 || ^9
+configure: admincss.config

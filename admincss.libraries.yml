@@ -1,0 +1,33 @@
+admincss.editor:
+  version: VERSION
+  js:
+    js/editor.js: {  }
+  css:
+    theme:
+      css/editor.css: {  }
+  dependencies:
+    - core/jquery
+    - core/jquery.once
+    - core/jquery.ui.resizable
+    - admincss/admincss.acejs
+
+admincss.acejs:
+  remote: https://github.com/ajaxorg/ace
+  version: 1.4.9
+  license:
+    name: BSD New
+    url: https://github.com/ajaxorg/ace/blob/master/LICENSE
+    gpl-compatible: true
+  js:
+    https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.9/ace.js:
+      type: external
+      minified: true
+      attributes:
+        integrity: sha256-CvwZRDTGSAw2IQybkwEsxuHuo7SaVRIX+fofIG6G4Pk=
+        crossorigin: anonymous
+    https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.9/ext-language_tools.min.js:
+      type: external
+      minified: true
+      attributes:
+        integrity: sha256-Y9BjjymBeDBEobqSb85ywuBB0kvHtntP8WRoagrvPoY=
+        crossorigin: anonymous

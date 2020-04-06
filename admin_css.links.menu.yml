@@ -1,5 +1,0 @@
-admin_css.config_menu:
-  title: 'Admin style settings'
-  description: 'Settings for admin css.'
-  route_name: admin_css.config
-  parent: system.admin_config_development

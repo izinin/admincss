@@ -1,0 +1,7 @@
+admincss.config:
+  path: '/admin/config/development/admincss'
+  defaults:
+    _form: '\Drupal\admincss\Form\AdminCssEditor'
+    _title: 'Admin CSS Editor'
+  requirements:
+    _permission: 'administer admin css'
