@@ -7,7 +7,7 @@
   'use strict';
 
   Drupal.behaviors.adminCssEditor = {
-    attach: function (context, settings) {
+    attach: function (context) {
 
       if (typeof ace == 'undefined' || typeof ace.edit != 'function') {
         return;
@@ -32,7 +32,7 @@
           useSoftTabs: false,
           tabSize: 2,
           mode: 'ace/mode/' + $textArea.attr('data-ace-mode'),
-          readOnly: $textArea.attr('data-ace-readonly'),
+          readOnly: $textArea.attr('data-ace-readonly')
         });
 
         // Set content and place the cursor after it.
@@ -68,32 +68,11 @@
           $editorTextArea.val(editor.getSession().getValue());
         });
 
-        /*session.on('changeMode', function() {
-          var worker = session.$worker;
-          if (worker) {
-            var submissionFn = function(){ return false; };
-            worker.on('annotate', function(lint) {
-              var messages = lint.data, hasError;
-              hasError = messages.some(function(item) {
-                return item.type === 'error';
-              });
-               if (hasError) {
-                 // Disable the form submission.
-                 $form.submit(submissionFn);
-                 $form.find(':submit').attr('disabled', 'disabled');
-               } else {
-                 $form.unbind('submit', submissionFn);
-                 $form.find(':submit').removeAttr('disabled');
-               }
-            });
-          }
-        });*/
-
         // Save the changes.
         editor.commands.addCommand({
           name: 'save',
           bindKey: {win: 'Ctrl-S', mac: 'Cmd-S'},
-          exec: function(editor) {
+          exec: function () {
             $form.submit();
           }
         });

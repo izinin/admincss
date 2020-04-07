@@ -1,2 +1,4 @@
 administer admin css:
   title: 'Administer Admin CSS'
+  description: 'Add custom CSS to the site.'
+  restrict access: true

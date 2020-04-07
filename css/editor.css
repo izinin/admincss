@@ -1,15 +1,15 @@
 .admincss__resizable.ui-resizable {
-    min-height: 300px;
-    min-width: 300px;
-    padding: 5px;
-    position: relative;
-    border: 1px solid #a9a9a9;
+  min-height: 300px;
+  min-width: 300px;
+  padding: 5px;
+  position: relative;
+  border: 1px solid #a9a9a9;
 }
 
 .admincss__resizable.ui-resizable .admincss__ace-editor {
-    position: absolute !important;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+  position: absolute !important;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
 }

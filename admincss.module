@@ -5,6 +5,21 @@
  * Hook implementations for the Admin CSS module.
  */
 
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function admincss_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    case 'help.page.admincss':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('The Admin CSS module provides a way to add custom CSS to the site.') . '</p>';
+      return $output;
+  }
+}
+
 /**
  * Implements hook_page_attachments().
  */

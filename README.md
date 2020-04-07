@@ -20,7 +20,8 @@ CONFIGURATION
 
  * Navigate to Administration > Extend and enable the module.
 
- * Navigate to Administration » Configuration » Development » Admin CSS Editor to add custom css.
+ * Navigate to Administration » Configuration » Development » Admin CSS Editor 
+   to add custom css.
 
  * Save your configuration. When enabled, the module will allows users to
    add css in the admin dashboard.
