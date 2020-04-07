@@ -9,7 +9,9 @@
  * Uninstall the admin_css module.
  */
 function admin_css_post_update_uninstall_module() {
-  /** @var $module_installer \Drupal\Core\Extension\ModuleInstallerInterface */
+  /**
+   * @var \Drupal\Core\Extension\ModuleInstallerInterface $module_installer
+   */
   $module_installer = \Drupal::service('module_installer');
 
   // Uninstall the deprecated module.
