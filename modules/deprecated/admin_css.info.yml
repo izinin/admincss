@@ -1,5 +1,5 @@
 name: Admin CSS (deprecated)
-description: Hidden deprecated module, required for module name change.
+description: Temporary deprecated module, required for module name change.
 type: module
 hidden: true
 

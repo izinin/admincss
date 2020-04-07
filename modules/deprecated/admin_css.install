@@ -1,0 +1,29 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the Admin CSS module.
+ */
+
+/**
+ * Migrate to new admincss module name.
+ */
+function admin_css_update_8200() {
+  $config_factory = \Drupal::configFactory();
+  /** @var $module_installer \Drupal\Core\Extension\ModuleInstallerInterface */
+  $module_installer = \Drupal::service('module_installer');
+
+  // Install the new module.
+  $module_installer->install(['admincss']);
+
+  // Attempt to migrate the old settings over.
+  $old_settings = $config_factory->getEditable('admin_css.settings');
+  $new_settings = $config_factory->getEditable('admincss.settings');
+  if (empty($new_settings->get('custom_css')) && $custom_css = $old_settings->get('custom_css')) {
+    $new_settings
+      ->set('custom_css', (string) $custom_css)
+      ->save(TRUE);
+  }
+
+  $old_settings->delete();
+}
