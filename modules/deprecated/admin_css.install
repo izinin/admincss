@@ -10,9 +10,7 @@
  */
 function admin_css_update_8200() {
   $config_factory = \Drupal::configFactory();
-  /**
-   * @var \Drupal\Core\Extension\ModuleInstallerInterface $module_installer
-   */
+  /* @var \Drupal\Core\Extension\ModuleInstallerInterface $module_installer */
   $module_installer = \Drupal::service('module_installer');
 
   // Install the new module.
