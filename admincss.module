@@ -5,6 +5,7 @@
  * Hook implementations for the Admin CSS module.
  */
 
+use Drupal\Core\Cache\CacheableMetadata;
 use Drupal\Core\Routing\RouteMatchInterface;
 
 /**
@@ -23,13 +24,18 @@ function admincss_help($route_name, RouteMatchInterface $route_match) {
 /**
  * Implements hook_page_attachments().
  */
-function admincss_page_attachments(array &$page) {
+function admincss_page_attachments(array &$attachments) {
   $theme = \Drupal::theme()->getActiveTheme()->getName();
-  $def_theme = Drupal::config('system.theme')->get('default');
-  if ($def_theme === $theme) {
+  $default_theme = \Drupal::config('system.theme')->get('default');
+  if ($default_theme === $theme) {
     if (file_exists('public://admin-style.css')) {
-      $page['#attached']['library'][] = $theme . '/admincss.admincss';
+      $attachments['#attached']['library'][] = $theme . '/admincss.admincss';
     }
+
+    // Add the admin css cache tags.
+    $admincss_config = \Drupal::config('admincss.settings');
+    $cacheable_metadata = CacheableMetadata::createFromObject($admincss_config);
+    $cacheable_metadata->applyTo($attachments);
   }
 }
 
