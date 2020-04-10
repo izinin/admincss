@@ -3,6 +3,7 @@
 namespace Drupal\admincss\Form;
 
 use Drupal\Core\Asset\AssetCollectionOptimizerInterface;
+use Drupal\Core\Cache\CacheTagsInvalidatorInterface;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\File\Exception\FileException;
 use Drupal\Core\File\FileSystemInterface;
@@ -21,6 +22,13 @@ class AdminCssEditor extends ConfigFormBase {
    * @var \Drupal\Core\File\FileSystemInterface
    */
   protected $fileSystem;
+
+  /**
+   * The cache tag invalidator.
+   *
+   * @var \Drupal\Core\Cache\CacheTagsInvalidatorInterface
+   */
+  protected $cacheTagsInvalidator;
 
   /**
    * The CSS asset collection optimizer service.
@@ -43,6 +51,8 @@ class AdminCssEditor extends ConfigFormBase {
    *   The factory for configuration objects.
    * @param \Drupal\Core\File\FileSystemInterface $file_system
    *   The file system.
+   * @param \Drupal\Core\Cache\CacheTagsInvalidatorInterface $cache_tags_invalidator
+   *   The cache tags invalidator service.
    * @param \Drupal\Core\Asset\AssetCollectionOptimizerInterface $css_collection_optimizer
    *   The CSS asset collection optimizer service.
    * @param \Drupal\Core\Asset\AssetCollectionOptimizerInterface $js_collection_optimizer
@@ -51,12 +61,14 @@ class AdminCssEditor extends ConfigFormBase {
   public function __construct(
     ConfigFactoryInterface $config_factory,
     FileSystemInterface $file_system,
+    CacheTagsInvalidatorInterface $cache_tags_invalidator,
     AssetCollectionOptimizerInterface $css_collection_optimizer,
     AssetCollectionOptimizerInterface $js_collection_optimizer
   ) {
     parent::__construct($config_factory);
 
     $this->fileSystem = $file_system;
+    $this->cacheTagsInvalidator = $cache_tags_invalidator;
     $this->cssCollectionOptimizer = $css_collection_optimizer;
     $this->jsCollectionOptimizer = $js_collection_optimizer;
   }
@@ -68,6 +80,7 @@ class AdminCssEditor extends ConfigFormBase {
     return new static(
       $container->get('config.factory'),
       $container->get('file_system'),
+      $container->get('cache_tags.invalidator'),
       $container->get('asset.css.collection_optimizer'),
       $container->get('asset.js.collection_optimizer')
     );
@@ -143,6 +156,9 @@ class AdminCssEditor extends ConfigFormBase {
       // Flush the css/js asset cache.
       $this->flushAssetCache();
     }
+    else {
+      $this->messenger()->addWarning($this->t('Failed to successfully write the changes to disk.'));
+    }
 
     parent::submitForm($form, $form_state);
   }
@@ -153,10 +169,30 @@ class AdminCssEditor extends ConfigFormBase {
    * @see drupal_flush_all_caches()
    */
   protected function flushAssetCache() {
-    // Flush the CSS and JS asset file caches.
-    $this->cssCollectionOptimizer->deleteAll();
-    $this->jsCollectionOptimizer->deleteAll();
-    _drupal_flush_css_js();
+    if ($this->config('system.performance')->get('css.preprocess')) {
+      /*
+       * CSS aggregation is enabled.
+       * Clear the asset resolver cache typically used for storing the
+       * aggregated files.
+       * @see \Drupal\Core\Asset\AssetResolver::getCssAssets
+       * @see \Drupal\Core\Asset\AssetResolver::getJsAssets
+       *
+       * The invalidation call might be potentially expensive to run.
+       * Drupal should add an AssetResolver asset specific tag.
+       *
+       * An alternative is to disable preprocessing on the admincss asset.
+       * But you lose the various optimizations Drupal provides.
+       */
+      $this->cacheTagsInvalidator->invalidateTags(['library_info']);
+
+      // Delete the optimized CSS and JS asset file caches.
+      $this->cssCollectionOptimizer->deleteAll();
+      $this->jsCollectionOptimizer->deleteAll();
+    }
+    else {
+      // Regenerate the dummy query string.
+      _drupal_flush_css_js();
+    }
   }
 
 }
